@@ -2,7 +2,7 @@ import kfp
 from kfp import dsl
 from kfp.dsl import pipeline
 
-from components.utils import yaml_parser
+from utils import yaml_parser
 from components.processing import load_data_and_preprocess
 from components.train import train
 from components.train_automl import train_with_wandb
@@ -14,8 +14,8 @@ def bci_pipeline(
     model_name: str
 ): 
     """ Load yaml info """
-    SECRET = yaml_parser("secret.yaml")
-    CFG = yaml_parser("config.yaml")
+    SECRET = yaml_parser("./secret.yaml")
+    CFG = yaml_parser("./config.yaml")
     
     
     """ MAIN PIPELINE """
@@ -59,5 +59,5 @@ def bci_pipeline(
         ).set_display_name("Upload scikit-learn model to mlflow")
     
 if __name__ == "__main__":
-    kfp.compiler.Compiler().compile(bci_pipeline, "yamls/bci_pipeline.yaml")
+    kfp.compiler.Compiler().compile(bci_pipeline, "./yamls/bci_pipeline.yaml")
  
