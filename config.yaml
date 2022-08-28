@@ -1,0 +1,12 @@
+random_state: 2022
+
+signal:
+  band_order: 2
+  fs: 250
+  window_size: 750 # 3s
+  
+csp:
+  n_components: 10
+  reg: None
+  log: True
+  norm_trace: False
