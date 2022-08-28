@@ -23,7 +23,6 @@ def bci_pipeline(
         secret=SECRET,
         cfg=CFG,
     ).set_display_name("Load dataset from GCS and Preprocess it")
-
     
     with dsl.Condition(hyperparameter_tuning==True):
         model = train_with_wandb(
@@ -32,7 +31,16 @@ def bci_pipeline(
             train_y=data.outputs["train_y"],
             test_x=data.outputs["test_x"],
             test_y=data.outputs["test_y"],
-        ).set_display_name("Train data with hyperparameter tunnig")
+        ).set_display_name("Train data with default parameter")
+        
+        _ = upload_sklearn_model_to_mlflow(
+            secret=SECRET,
+            model_name=model_name,
+            model=model.outputs["model"],
+            signature=model.outputs["signature"],
+            conda_env=model.outputs["conda_env"],
+        ).set_display_name("Upload scikit-learn model to mlflow")
+        
     with dsl.Condition(hyperparameter_tuning==False):
         model = train(
             cfg=CFG,
@@ -42,15 +50,13 @@ def bci_pipeline(
             test_y=data.outputs["test_y"],
         ).set_display_name("Train data with default parameter")
         
-    _ = upload_sklearn_model_to_mlflow(
-        secret=SECRET,
-        model_name=model_name,
-        model=model.outputs["model"],
-        feature_extractor=model.outputs["feature_extractor"],
-        input_example=model.outputs["input_example"],
-        signature=model.outputs["signature"],
-        conda_env=model.outputs["conda_env"],
-    ).set_display_name("Upload scikit-learn model to mlflow")
+        _ = upload_sklearn_model_to_mlflow(
+            secret=SECRET,
+            model_name=model_name,
+            model=model.outputs["model"],
+            signature=model.outputs["signature"],
+            conda_env=model.outputs["conda_env"],
+        ).set_display_name("Upload scikit-learn model to mlflow")
     
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(bci_pipeline, "yamls/bci_pipeline.yaml")
