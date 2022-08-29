@@ -31,7 +31,7 @@ def bci_pipeline(
             train_y=data.outputs["train_y"],
             test_x=data.outputs["test_x"],
             test_y=data.outputs["test_y"],
-        ).set_display_name("Train data with default parameter")
+        ).set_display_name("Train data with hyperparameter tuning")
         
         _ = upload_sklearn_model_to_mlflow(
             secret=SECRET,
@@ -39,7 +39,7 @@ def bci_pipeline(
             model=model.outputs["model"],
             signature=model.outputs["signature"],
             conda_env=model.outputs["conda_env"],
-        ).set_display_name("Upload scikit-learn model to mlflow")
+        ).set_display_name("Upload custom model to mlflow")
         
     with dsl.Condition(hyperparameter_tuning==False):
         model = train(
@@ -56,7 +56,7 @@ def bci_pipeline(
             model=model.outputs["model"],
             signature=model.outputs["signature"],
             conda_env=model.outputs["conda_env"],
-        ).set_display_name("Upload scikit-learn model to mlflow")
+        ).set_display_name("Upload custom model to mlflow")
     
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(bci_pipeline, "./yamls/bci_pipeline.yaml")

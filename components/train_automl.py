@@ -12,7 +12,6 @@ def train_with_wandb(
     test_x_path: InputPath("dill"),
     test_y_path: InputPath("dill"),
     model_path: OutputPath("dill"),
-    feature_extractor_path: OutputPath("dill"),
     signature_path: OutputPath("dill"),
     conda_env_path: OutputPath("dill"),
 ):
@@ -26,44 +25,61 @@ def train_with_wandb(
         test_x = dill.load(file_reader)
     with open(test_y_path, mode="rb") as file_reader:
         test_y = dill.load(file_reader)
-
-
-    """ Train and Validate """
-    from sklearn.metrics import accuracy_score
-    from sklearn.svm import SVC
-    from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-    from mne.decoding import CSP
     
-    # Train
-    csp = CSP(
+    
+    """ Define the model class """
+    import mlflow
+
+    class CSP_SVM(mlflow.pyfunc.PythonModel):  
+        def __init__(self, n_components, reg, log, norm_trace, kernel):
+            from sklearn.svm import SVC
+            from mne.decoding import CSP
+
+            self.csp = CSP(
+                n_components=n_components,
+                reg=reg,
+                log=log, 
+                norm_trace=norm_trace
+            )
+            self.svm = SVC(kernel=kernel)
+
+        def fit(self, train_x, train_y):
+            transform_train_x = self.csp.fit_transform(train_x, train_y)
+            self.svm.fit(transform_train_x, train_y)
+
+        def predict(self, test_x):
+            transform_test_x = self.csp.transform(test_x)
+            pred = self.svm.predict(transform_test_x)
+            return pred
+
+    model = CSP_SVM(
         n_components=cfg["csp"]["n_components"], 
         reg=None,
         log=cfg["csp"]["log"], 
-        norm_trace=cfg["csp"]["norm_trace"],
+        norm_trace=cfg["csp"]["norm_trace"],       
+        kernel=cfg["svm"]["kernel"],
     )
-    transform_train_x = csp.fit_transform(train_x, train_y)
-    clf = SVC()
-    clf.fit(transform_train_x, train_y)
-    
-    # Validate  
-    transform_test_x = csp.transform(test_x)
-    pred = clf.predict(transform_test_x)
-    acc = accuracy_score(pred, test_y)
 
+    """ Train and Validate """
+    from sklearn.metrics import accuracy_score
+
+    model.fit(train_x, train_y)
+    pred = model.predict(test_x)
+    accuracy = accuracy_score(pred, test_y)
+    print("Accuracy: ", accuracy)
+    
 
     """ Convert data to mlflow format data """
     from mlflow.models.signature import infer_signature
     from mlflow.utils.environment import _mlflow_conda_env
     
-    signature = infer_signature(train_x, clf.predict(csp.transform(train_x)))
+    signature = infer_signature(train_x, model.predict(train_x))
     conda_env = _mlflow_conda_env(
         additional_pip_deps=["dill", "pandas", "scikit-learn", "mne"]
     )
     
     with open(model_path, mode="wb") as file_writer:
-        dill.dump(clf, file_writer)
-    with open(feature_extractor_path, mode="wb") as file_writer:
-        dill.dump(csp, file_writer)    
+        dill.dump(model, file_writer)
     with open(signature_path, "wb") as file_writer:
         dill.dump(signature, file_writer)    
     with open(conda_env_path, "wb") as file_writer:
