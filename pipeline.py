@@ -1,14 +1,13 @@
-from unittest import result
 import kfp
 from kfp import dsl
 from kfp.dsl import pipeline
 
 from utils import yaml_parser
-from components.processing import load_data_and_preprocess
-from components.train import train
-from components.train_automl import train_with_wandb
-from components.upload_model import upload_model_to_mlflow
-from components.evaluation import evaluate
+from kubeflow_components.processing import load_data_and_preprocess
+from kubeflow_components.train import train
+from kubeflow_components.registration_model import upload_model_to_mlflow
+from kubeflow_components.evaluation import evaluate
+from kubeflow_components.serving import serve
 
 @pipeline(
     name='BCI-PIPELINE',
@@ -58,7 +57,10 @@ def bci_pipeline(
             model=model_result.outputs["model"],
             conda_env=model_result.outputs["conda_env"],
         ).set_display_name("Upload custom model to mlflow")
-    
+
+        serving_to_bentoml = serve()
+        end = serving_to_bentoml().after(_)
+        
 
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(bci_pipeline, "./yamls/BCI-PIPELINE.yaml")

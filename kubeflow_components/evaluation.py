@@ -1,7 +1,5 @@
-# mlflow의 최신버전과 train에서 학습된 모델끼리 성적 비교 후 업로드 결정
 from functools import partial
-from pickle import FALSE
-from kfp.components import InputPath, OutputPath, create_component_from_func
+from kfp.components import InputPath, create_component_from_func
 
 @partial(
     create_component_from_func,
@@ -49,7 +47,7 @@ def evaluate(
 
     latest_version = 0
     for res in results: 
-        if int(res.version) > latest_version:
+        if int(res.version) > int(latest_version):
             latest_version=res.version
             model_uri = res.source
 

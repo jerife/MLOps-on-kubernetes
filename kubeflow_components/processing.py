@@ -1,6 +1,5 @@
 from functools import partial
 from kfp.components import OutputPath, create_component_from_func    
-import numpy as np
 
 @partial(
     create_component_from_func,
@@ -65,7 +64,7 @@ def load_data_and_preprocess(
         b2, a2 = signal.butter(band_order, band, 'band', fs=fs)  # band pass define
 
         data_list = []
-        for each_channel in data: # 64 * X
+        for each_channel in data: # 22 * 750
             bandpass_data = signal.lfilter(b2, a2, each_channel)
             data_list.append(bandpass_data)
             
