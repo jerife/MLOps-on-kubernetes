@@ -41,7 +41,6 @@ def bci_pipeline(
             train_y=data_result.outputs["train_y"],
         ).set_display_name("Train model with default parameter")
     
-    
     eval_result = evaluate(
         secret=SECRET,
         model_name=model_name,
@@ -60,7 +59,7 @@ def bci_pipeline(
 
         serving_to_bentoml = serve()
         end = serving_to_bentoml().after(_)
-        
+    """ MAIN PIPELINE """
 
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(bci_pipeline, "./yamls/BCI-PIPELINE.yaml")

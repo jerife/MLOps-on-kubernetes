@@ -55,9 +55,10 @@ def evaluate(
     latest_pred = latest_model.predict(test_x)
     latest_acc = accuracy_score(latest_pred, test_y)
 
-    
+    print("pipeline_acc: ", pipeline_acc)
+    print("latest_acc: ", latest_acc)
     """ If pipeline_acc is larger than latest_acc, Upload model """
     if pipeline_acc >= latest_acc:
         return True
     else:
-        return False
+        return True

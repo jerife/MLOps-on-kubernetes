@@ -24,9 +24,9 @@ label2class = {
     6: "left",
     7: "right"
 }
-
-bci_runner = bentoml.picklable_model.get("bci_classifier:latest").to_runner()
-svc = bentoml.Service("bci_service", runners=[bci_runner])
+bentoml.picklable_model.get
+bci_runner = bentoml.picklable_model.get("bci_clf:latest").to_runner()
+svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 
 @svc.api(input=NumpyNdarray(), output=NumpyNdarray())
 def classify(signals):
