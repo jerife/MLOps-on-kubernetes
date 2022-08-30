@@ -1,0 +1,13 @@
+service: "service.py:svc"
+labels:
+    owner: jerife
+    stage: demo
+include:
+    - "*.py" 
+python:
+    packages:
+        - scikit-learn
+        - numpy
+        - pandas
+        - mne
+        - scipy
