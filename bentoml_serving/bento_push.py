@@ -41,4 +41,3 @@ if __name__ == '__main__':
     os.system(f"bentoml yatai login --api-token {api_token} --endpoint {ip}")
     os.system(f"bentoml build")
     os.system(f"bentoml push bci_classifier:latest")
-
