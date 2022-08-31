@@ -24,7 +24,6 @@ label2class = {
     6: "left",
     7: "right"
 }
-bentoml.picklable_model.get
 bci_runner = bentoml.picklable_model.get("bci_clf:latest").to_runner()
 svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 
