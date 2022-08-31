@@ -26,10 +26,9 @@ def load_mlflow():
     model = load_model(model_uri)
     return model
     
-    
 def bento_serve():
     bentoml.picklable_model.save_model(
-        name="bci_classifier",
+        name="bci_clf",
         model=load_mlflow(),
     )
 
@@ -41,5 +40,4 @@ if __name__ == '__main__':
     ip = SECRET["BENTOML"]["IP"]
     os.system(f"bentoml yatai login --api-token {api_token} --endpoint {ip}")
     os.system(f"bentoml build")
-    os.system(f"bentoml push bci_service:latest")
-
+    os.system(f"bentoml push bci_classifier:latest")
