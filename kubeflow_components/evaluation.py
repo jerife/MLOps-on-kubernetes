@@ -45,20 +45,27 @@ def evaluate(
     filter_string = "name='BCI-Model'"
     results = client.search_model_versions(filter_string)
 
-    latest_version = 0
-    for res in results: 
-        if int(res.version) > int(latest_version):
-            latest_version=res.version
-            model_uri = res.source
+    try:
+        latest_version = 0
+        for res in results: 
+            if int(res.version) > int(latest_version):
+                latest_version=res.version
+                model_uri = res.source
 
-    latest_model = load_model(model_uri)
-    latest_pred = latest_model.predict(test_x)
-    latest_acc = accuracy_score(latest_pred, test_y)
+        latest_model = load_model(model_uri)
+        latest_pred = latest_model.predict(test_x)
+        latest_acc = accuracy_score(latest_pred, test_y)
+    except:
+        print("Any version is not registed in Mlflow, so Upload PIPELINE model")
+        return True
 
     print("pipeline_acc: ", pipeline_acc)
     print("latest_acc: ", latest_acc)
+    
     """ If pipeline_acc is larger than latest_acc, Upload model """
     if pipeline_acc >= latest_acc:
+        print("Upload PIPELINE model because it shows better accuracy")
         return True
     else:
-        return True
+        print("PIPELINE model is not uploaded because MLflow model shows better accuracy")
+        return False
