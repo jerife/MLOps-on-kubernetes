@@ -24,15 +24,14 @@ label2class = {
     6: "left",
     7: "right"
 }
-
-bci_runner = bentoml.picklable_model.get("bci_classifier:latest").to_runner()
-svc = bentoml.Service("bci_service", runners=[bci_runner])
+bci_runner = bentoml.picklable_model.get("bci_clf:latest").to_runner()
+svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 
 @svc.api(input=NumpyNdarray(), output=NumpyNdarray())
 def classify(signals):
     signal_list = []
     for signal in signals:
-        signal_list.append(apply_bandpass_filter(signal))
+        signal_list.append(apply_bandpass_filter(data=signal, fs=250, band=[8,30], band_order=2))
         
     result = bci_runner.run(np.array(signal_list))
     return np.array([label2class[i] for i in result])
