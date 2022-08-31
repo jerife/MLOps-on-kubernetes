@@ -31,7 +31,7 @@ svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 def classify(signals):
     signal_list = []
     for signal in signals:
-        signal_list.append(apply_bandpass_filter(signal))
+        signal_list.append(apply_bandpass_filter(data=signal, fs=250, band=[8,30], band_order=2))
         
     result = bci_runner.run(np.array(signal_list))
     return np.array([label2class[i] for i in result])

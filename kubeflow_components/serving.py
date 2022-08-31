@@ -6,5 +6,5 @@ def serve():
 name: Push model to bentoml
 implementation:
   container:
-    image: jerife/bentoml_serve:v0.5
+    image: jerife/bentoml_serve:v0.6
 """)
