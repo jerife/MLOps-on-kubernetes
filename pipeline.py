@@ -1,4 +1,3 @@
-import secrets
 import kfp
 from kfp import dsl
 from kfp.dsl import pipeline
@@ -79,4 +78,4 @@ def bci_pipeline(
     """ MAIN PIPELINE """
 
 if __name__ == "__main__":
-    kfp.compiler.Compiler().compile(bci_pipeline, "./yamls/BCI-PIPELINE.yaml")
+    kfp.compiler.Compiler().compile(bci_pipeline, "./BCI-PIPELINE.yaml")
