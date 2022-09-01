@@ -102,7 +102,7 @@ $ curl \
 
 ---
 
-## About Task
+## Machine Learning Task
 <div align="center">
     <img src="https://user-images.githubusercontent.com/68190553/187877740-ac248b69-046f-412a-b1d5-7e974b95f2db.png"
     width="100%"/><br/>
