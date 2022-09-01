@@ -25,7 +25,6 @@ Also, because it is managed as a Kubernette container, Dockerfile ensure the sam
 - Model Serving: API communication with user through BentoML.
 - Monitoring: Monitor the cluster's resources with Prometheus & Grafana.
 
----
 
 ## ML PIPELINE
 <div align="center">
@@ -83,11 +82,12 @@ Pushed models are deployed as desired by the user through the Web UI. (eg. CPU, 
 Currently, there are many problems with BentoML1.0 in the GKE environment, so it is registered as an issue, and the writing is temporarily written.
 ```
 -> Issue: https://github.com/bentoml/Yatai/issues/323
+If this issue is resolved, then i will apply bentoml again.
 
 <br/>
 </details>
 
-## Model Inference
+### Model Inference
 ```bash
 $ curl \                                                                                                                                                   
     -X POST \
@@ -101,5 +101,25 @@ $ curl \
 ```
 
 ---
-## Data Domain
-Brain COmputer Interface
+
+## About Task
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/68190553/187877740-ac248b69-046f-412a-b1d5-7e974b95f2db.png"
+    width="100%"/><br/>
+</div><br/>
+
+### Overview
+In this task, I aim to build a motor image (MI) task, which is mainly covered in the Brain Computer Interface, into MLOps <br/>
+(ie. MI task: input brain waves generated when imagining moving into the model to derive results)
+
+### Data
+BCI Competition IV 2a Dataset (Classification of EEG signals affected by eye movement artifacts)
+
+### Task
+1. Preprocessing 
+    - Band Pass Filter 8~30Hz 
+    - Segment the data into trainable shapes
+2. Feature Extraction
+    - Common Spatial Pattern
+3. Modeling
+    - Support Vector Machine
