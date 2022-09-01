@@ -123,3 +123,12 @@ BCI Competition IV 2a Dataset (Classification of EEG signals affected by eye mov
     - Common Spatial Pattern
 3. Modeling
     - Support Vector Machine
+
+---
+
+## Author
+```yaml
+Github: @jeirfe
+Website: jerife.github.io
+Email: jerife@naver.com
+```
