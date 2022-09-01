@@ -20,7 +20,7 @@ Also, because it is managed as a Kubernette container, Dockerfile ensure the sam
 - Kubernetes: Deploy a Kubernetes cluster with the Google Kubernetes Engine.
 - ML PIPELINE: Build an ML PIPELINE that learns and deploys the model only by entering parameters with Kubeflow.
 - Data Storage: Manage your data with Google Cloud Storage.
-- Experiment Tracking & AutoML: Use Weight & Bias to track the experiment and find the optimal Hyperparameter.
+- Experiment Tracking & AutoML: Use Weight & Biases to track the experiment and find the optimal Hyperparameter.
 - Model Versioning: Manage and save models by version with Mlflow.
 - Model Serving: API communication with user through BentoML.
 - Monitoring: Monitor the cluster's resources with Prometheus & Grafana.
@@ -113,7 +113,7 @@ In this task, I aim to build a motor image (MI) task, which is mainly covered in
 (ie. MI task: input brain waves generated when imagining moving into the model to derive results)
 
 ### Data
-BCI Competition IV 2a Dataset (Classification of EEG signals affected by eye movement artifacts)
+[BCI Competition IV 2a Dataset](https://www.bbci.de/competition/iv/) (Classification of EEG signals affected by eye movement artifacts)
 
 ### Task
 1. Preprocessing 
