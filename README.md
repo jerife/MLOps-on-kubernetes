@@ -132,4 +132,7 @@ In this task, I aim to build a motor image (MI) task, which is mainly covered in
 Github: @jeirfe
 Website: jerife.github.io
 Email: jerife@naver.com
+
+Copyright © 2022 jerife.
+This project is Apache-2.0 licensed.
 ```
