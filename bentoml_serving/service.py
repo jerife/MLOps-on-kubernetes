@@ -2,7 +2,7 @@ from scipy import signal
 import numpy as np
 
 import bentoml
-from bentoml.io import NumpyNdarray
+from bentoml.io import NumpyNdarray, Text
 
 def apply_bandpass_filter(
     data: np.array,
@@ -27,7 +27,7 @@ label2class = {
 bci_runner = bentoml.picklable_model.get("bci_clf:latest").to_runner()
 svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 
-@svc.api(input=NumpyNdarray(), output=NumpyNdarray())
+@svc.api(input=NumpyNdarray(), output=Text())
 def classify(signals):
     signal_list = []
     for signal in signals:
