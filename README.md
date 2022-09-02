@@ -76,13 +76,9 @@ The trained model is compared to the model registered in the mlflow, and if it h
 </div><br/>
 
 If the model is stored in Mlflow, the model will is pushed to BentoML.<br/>
-Pushed models are deployed as desired by the user through the Web UI. (eg. CPU, GPU, Memory etc)<br/>
+Pushed models are deployed as desired by the user. (eg. CPU, GPU, Memory etc)<br/>
 
-```
-Currently, there are many problems with BentoML1.0 in the GKE environment, so it is registered as an issue, and the writing is temporarily written.
-```
--> Issue: https://github.com/bentoml/Yatai/issues/323
-If this issue is resolved, then i will apply bentoml again.
+
 
 <br/>
 </details>
@@ -99,6 +95,11 @@ $ curl \
     
 >>> "left"
 ```
+```
+Currently, there are many problems with BentoML1.0 in the GKE environment, so it is registered as an issue, and the writing is temporarily written.
+```
+-> Issue: https://github.com/bentoml/Yatai/issues/323
+If this issue is resolved, then i will apply bentoml again.
 
 ---
 
