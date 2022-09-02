@@ -61,8 +61,8 @@ The number of tuning can be controlled through input variables, and the tuning p
 
 ### A. Model Versioning with Mlflow 
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/68190553/187695181-f95fe6bd-8cf8-4cbd-a786-45c263ab7008.png"
-    width="60%"/>
+    <img src="https://user-images.githubusercontent.com/68190553/188034509-569543ec-938b-459f-aec3-f5348cbd6b77.png"
+    width="70%"/>
 </div><br/>
 
 In "Condition: Train", the model is trained according to the input parameters, and if you do not enter the parameters, the model is trained with the default value.<br/>
@@ -72,7 +72,7 @@ The trained model is compared to the model registered in the mlflow, and if it h
 ### B. Model Serving with Bentoml
 <div align="center">
     <img src="https://user-images.githubusercontent.com/68190553/187844129-b09dd15a-2a70-44c8-9939-052eb2d58864.png"
-    width="60%"/><br/>
+    width="70%"/><br/>
 </div><br/>
 
 If the model is stored in Mlflow, the model will is pushed to BentoML.<br/>
