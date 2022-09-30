@@ -98,7 +98,7 @@ $ curl \
 ```
 Currently, there are many problems with BentoML1.0 in the GKE environment, so it is registered as an issue, and the writing is temporarily written.
 ```
--> Issue: https://github.com/bentoml/Yatai/issues/323
+-> Issue: https://github.com/bentoml/Yatai/issues/322
 If this issue is resolved, then i will apply bentoml again.
 
 ---
