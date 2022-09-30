@@ -29,7 +29,7 @@ Also, because it is managed as a Kubernette container, Dockerfile ensure the sam
 ## ML PIPELINE
 <div align="center">
     <img src="https://user-images.githubusercontent.com/68190553/187819501-7d6a3bbb-6e81-4e53-9c91-60307f6d1d95.png"
-    width="80%"/>
+    width="90%"/>
 </div><br/>
 
 Pipeline has two conditions depending on the user's parameter input.
@@ -46,7 +46,7 @@ Pipeline has two conditions depending on the user's parameter input.
 <div align="center">
     <br/>
     <img src="https://user-images.githubusercontent.com/68190553/187695957-e93d8722-3428-4e35-98a7-590b44801042.png"
-    width="80%"/>
+    width="100%"/>
 </div><br/>
 
 If Condition: Hyperparameter tuning, the model is not trained and only tuning is performed.<br/>
@@ -79,9 +79,15 @@ If the model is stored in Mlflow, the model will is pushed to BentoML.<br/>
 Pushed models are deployed as desired by the user. (eg. CPU, GPU, Memory etc)<br/>
 
 
-
 <br/>
 </details>
+
+### Cluster Monitoring 
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/68190553/193259553-139912cc-3291-47ff-9a85-46f18cc46e5e.png"
+    width="90%"/>
+</div><br/>
+Customize Prometheus & Grafana to monitor clusters.
 
 ### Model Inference
 ```bash
