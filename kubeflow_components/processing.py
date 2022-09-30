@@ -7,7 +7,10 @@ from kfp.components import OutputPath, create_component_from_func
 )
 def load_data_and_preprocess(
     secret: dict,
-    cfg: dict,
+    random_state: int,
+    band_order: int,
+    fs: int,
+    window_size: int,
     train_x_path: OutputPath("dill"),
     train_y_path: OutputPath("dill"),
     test_x_path: OutputPath("dill"),
@@ -88,11 +91,11 @@ def load_data_and_preprocess(
         label_list.append(preprocessing_data_label)
         
         data_signal = data_signal[:22] # Use only EEG data, index 23, 24, 25 are EOG data
-        data_signal = apply_bandpass_filter(data_signal, fs=cfg["signal"]["fs"], band=[8,30], band_order=cfg["signal"]["band_order"]) # bandpass filter
+        data_signal = apply_bandpass_filter(data_signal, fs=fs, band=[8,30], band_order=band_order) # bandpass filter
 
         for use_data_each in tqdm(use_data):
             start = int(use_data_each[0])
-            end = int(start + cfg["signal"]["window_size"])
+            end = int(start + window_size)
             
             channel_list=[]
             for each_channel in data_signal:
@@ -104,7 +107,7 @@ def load_data_and_preprocess(
     import dill
     from sklearn.model_selection import train_test_split
     
-    train_x, test_x, train_y, test_y = train_test_split(np.array(trial_list), np.array(label_list).reshape(-1), test_size=0.2, random_state=cfg["random_state"])
+    train_x, test_x, train_y, test_y = train_test_split(np.array(trial_list), np.array(label_list).reshape(-1), test_size=0.2, random_state=random_state)
     with open(train_x_path, "wb") as file_writer:
         dill.dump(train_x, file_writer)
     with open(test_x_path, "wb") as file_writer:
