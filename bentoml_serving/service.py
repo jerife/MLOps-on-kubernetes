@@ -28,10 +28,8 @@ bci_runner = bentoml.picklable_model.get("bci_clf:latest").to_runner()
 svc = bentoml.Service("bci_classifier", runners=[bci_runner])
 
 @svc.api(input=NumpyNdarray(), output=Text())
-def classify(signals):
-    signal_list = []
-    for signal in signals:
-        signal_list.append(apply_bandpass_filter(data=signal, fs=250, band=[8,30], band_order=2))
+def classify(signal):
+    data = apply_bandpass_filter(data=signal, fs=250, band=[8,30], band_order=2)
         
-    result = bci_runner.run(np.array(signal_list))
-    return np.array([label2class[i] for i in result])
+    result = bci_runner.run(data)
+    return label2class[result]

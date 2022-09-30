@@ -1,6 +1,0 @@
-random_state: 2022
-
-signal:
-  band_order: 2
-  fs: 250
-  window_size: 750 # 250samples * 3s = 750samples
